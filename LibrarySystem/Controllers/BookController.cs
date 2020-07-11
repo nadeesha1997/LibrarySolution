@@ -13,12 +13,15 @@ namespace LibrarySystem.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        public BookController()
+        static List<Book> Database = loadDB();
+
+        public static List<Book> loadDB()
         {
-            Database.Add(new Book { id=1, Name = "Book1", Auther = "Auther1" });
-            Database.Add(new Book { id = 2, Name = "Book2", Auther = "Auther2" });
+            List<Book> temp = new List<Book>();
+            temp.Add(new Book { id=1, Name = "Book1", Auther = "Auther1" });
+            temp.Add(new Book { id = 2, Name = "Book2", Auther = "Auther2" });
+            return temp;
         }
-        List<Book> Database = new List<Book>();
         // GET: api/<BookController>
         [HttpGet]
         public IEnumerable<Book> Get()
@@ -30,26 +33,31 @@ namespace LibrarySystem.Controllers
         [HttpGet("{id}")]
         public Book Get(int id)
         {
-            return new Book { id = 1, Name = "book1", Auther = "auther"};
+            return Database.Find(book => book.id == id);
 
         }
 
         // POST api/<BookController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Book newBook)
         {
+            Database.Add(newBook);
         }
 
         // PUT api/<BookController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Book book)
         {
+            Database.Remove(Database.Find(book => book.id == id));
+            book.id = id;
+            Database.Add(book);
         }
 
         // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Database.Remove(Database.Find(book => book.id == id));
         }
     }
 }
