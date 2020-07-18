@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibrarySystem.Services
 {
-    public class BookService
+    public class BookService:IBookService
     {
         static List<Book> Database = loadDB();
 
@@ -40,7 +40,7 @@ namespace LibrarySystem.Services
             Database.Add(book);
         }
 
-        internal void Delete(int id)
+        public void Delete(int id)
         {
             Database.Remove(Database.Find(book => book.id == id));
         }

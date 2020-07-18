@@ -14,41 +14,45 @@ namespace LibrarySystem.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private static BookService bookService = new BookService();
+        private IBookService _bookService;
+       /* public BookController(IBookService bookService)
+        {
+            _bookService = bookService;
+        }*/
 
         // GET: api/<BookController>
         [HttpGet]
         public IEnumerable<Book> Get()
         {
-            return bookService.GetAll();
+            return _bookService.GetAll();
         }
 
         // GET api/<BookController>/5
         [HttpGet("{id}")]
         public Book Get(int id)
         {
-            return bookService.Get(id);
+            return _bookService.Get(id);
         }
 
         // POST api/<BookController>
         [HttpPost]
         public void Post([FromBody] Book newBook)
         {
-            bookService.Add(newBook);
+            _bookService.Add(newBook);
         }
 
         // PUT api/<BookController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Book book)
         {
-            bookService.Update(id, book);
+            _bookService.Update(id, book);
         }
 
         // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            bookService.Delete(id);
+            _bookService.Delete(id);
         }
     }
 }
