@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibrarySystem.Services
 {
-    interface IBookService
+    public interface IBookService
     {
         public List<Book> GetAll();
         public Book Get(int id);

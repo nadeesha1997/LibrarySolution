@@ -15,10 +15,10 @@ namespace LibrarySystem.Controllers
     public class BookController : ControllerBase
     {
         private IBookService _bookService;
-       /* public BookController(IBookService bookService)
+        public BookController(IBookService bookService)
         {
             _bookService = bookService;
-        }*/
+        }
 
         // GET: api/<BookController>
         [HttpGet]
