@@ -9,6 +9,8 @@ namespace LibrarySystem.Models
     {
         public string Name { get; set; }
         public string Auther { get; set; }
+        [key]
         public int id { get; set; }
+        public string ISBN { get; set; }
     }
 }

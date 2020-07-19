@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LibrarySystem.Data;
+using LibrarySystem.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +31,10 @@ namespace LibrarySystem
             services.AddControllers();
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
+            services.AddSingleton(typeof(IBookService), new BookService());
+            services.AddDbContext<LibraryDataContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("LibraryDatabase"))
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
